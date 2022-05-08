@@ -1,7 +1,10 @@
-function [ T ] = load_all_images()
-  
+function [ T ] = load_all_images(all = false)
   
 T = zeros (10, 9, 40000);
+if (all)
+  T = zeros (10, 9, 36, 40000);
+endif
+
 
 
 myDir = "/run/media/mateo/Personal/projects/py/ml/tensors/data/training-synthetic/"; 
@@ -26,7 +29,14 @@ for p = 0:9
         img_original = imread(strcat(myDir,full_filename));
         img_1d = reshape(img_original,1,[]);
 ##      IMAGES(k,:) = img1D;
-        T(p+1,1 - (a/4),:) = img_1d;
+        
+        
+        if (all)
+          T(p+1,1 - (a/4),l_iter,:) = img_1d;
+        else
+          T(p+1,1 - (a/4),:) = img_1d;
+        endif
+        
         fprintf(1, 'Now reading %d %s\n',k, full_filename);
        
         
@@ -34,9 +44,12 @@ for p = 0:9
         k = k+1;
         l_iter =  l_iter +1;
             
-        break
+        if (all == false) break
+        endif
+      
     end
-    break
+    if (all == false) break
+    endif
   end
 end
 end
