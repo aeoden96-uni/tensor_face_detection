@@ -16,8 +16,11 @@ function Y = ten_mat_mult( T, M, mode )
 %..........................................................................
 if ( size(M,2) ~= size(T,mode) )
     error('>> broj stupaca matrice razlicit od odg. dimenzije tenzora!')
-end
-dY = size(T) ; dY(mode) = size(M,1) ; 
+end 
+
+dY = size(T) ; 
+dY(mode) = size(M,1) ; 
+
 
 Y = fold( M * unfold(T, mode), mode, dY ) ; 
 end

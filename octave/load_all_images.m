@@ -1,8 +1,8 @@
 function [ T ] = load_all_images(all = false)
   
-T = zeros (10, 9, 40000);
+T = zeros (10, 9, 6400);
 if (all)
-  T = zeros (10, 9, 36, 40000);
+  T = zeros (10, 9, 36, 6400);
 endif
 
 
@@ -27,7 +27,9 @@ for p = 0:9
         
         full_filename = strcat(p_str, a_str,  l1_str, l2_str , "1.pgm");
         img_original = imread(strcat(myDir,full_filename));
-        img_1d = reshape(img_original,1,[]);
+        
+        image_resized = imresize(img_original, [80 80]);
+        img_1d = reshape(image_resized,1,[]);
 ##      IMAGES(k,:) = img1D;
         
         
