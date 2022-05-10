@@ -1,38 +1,41 @@
-function [ ] = full_program()
-  
-TENZOR = load_all_images();
+function [ T, R ,P, S1_ , U1 ] = full_program()
+
+  T = load_all_images(true);
+  [ S, U1, U2 ,U3 , U4 ] = MyHOSVD( T );
+
+  Tau = MyFold4(U4 * MyUnfold(S,4)   ,4 , [10 9 36 6400]);
+
+  Tpixels = MyUnfold(Tau ,4);
+
+  Ppixels = (pinv(Tpixels))';
+
+  fprintf(1, 'Ppixels done\n');
+
+  P = MyFold4(Ppixels,4,[10 9 36 6400]);
 
 
-##[ S, U1, U2, U3 ] = HOSVD0( TENZOR );
-##Tau = TMM(S,U4,4);
+  ##myDir = "C:\\Users\\mateo\\Desktop\\s\\training-synthetic\\";
 
-#main hosvd
-Tau = MyFold4(U4 * MyUnfold(S,4)   ,4 , [10 9 36 6400]);
+  img_test_2d = imread("C:\\Users\\mateo\\Desktop\\s\\test\\0000_02176.pgm");
+  img_test_2d = imresize(img_test_2d, [80 80]);
 
-##Tpixels = unfold(Tau,3);
-Tpixels = MyUnfold(Tau ,4);
+  img_test_1d = reshape(img_test_2d,1,[]);
+  img_test_1d =im2double(img_test_1d)*255;
 
-##Ppixels = (pinv(Tpixels))';
+  fprintf(1, 'Test image loaded\n');
 
-P = MyFold4(Ppixels,4,[10 9 36 6400]);
-##P = fold(Ppixels, 3, dT);
+  R = MyFold4(img_test_1d * MyUnfold(P,4)   ,4, [10 9 36 1]);
 
-img_test_2d = imread("/run/media/mateo/Personal/projects/py/ml/tensors/data/training-synthetic/0000_-4_0_0_15_15_1.pgm");
-img_test_1d = reshape(img_test_2d,1,[]);
-img_test_1d_double =im2double(img_test_1d)*255;
+  fprintf(1, 'R done \n');
+
+  [ Z, V1, V2, V3 ] = HOSVD( R );
+
+  S1_ = petlja( V1,V2,V3 , R );
+
+  test(U1, S1_);
 
 
-##R = ten_mat_mult(P, img_test_1d_double, 3);
-##R = TMM(P, img_test_1d_double', 4);
 
-R = MyFold4(img_test_1d_double * MyUnfold(P,4)   ,4, [10 9 36 1]);
 
- [ Z, V1, V2 ,V3] = HOSVD( R );
- 
- 
-##[Z, V1, V2 ] = MyHOSVD(R);  %samo nam Z treba
 
-? = petlja( V1,V2,V3 , R ,Z );
-  
-  
 end
