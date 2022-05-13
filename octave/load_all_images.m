@@ -1,13 +1,18 @@
 function [ T ] = load_all_images(all = false)
 
+##myDir = "C:\\Users\\mateo\\Desktop\\s\\training-synthetic\\";
+if (isequal(computer(),"x86_64-pc-linux-gnu"))
+  myDir = "../data/training-synthetic/";
+else
+  myDir = "..\\data\\training-synthetic\\";
+endif
+
+
 T = zeros (10, 9, 6400);
 if (all)
   T = zeros (10, 9, 36, 6400);
 endif
 
-
-
-myDir = "C:\\Users\\mateo\\Desktop\\s\\training-synthetic\\";
 myFiles = dir(fullfile(myDir,'*.pgm'));
 
 k = 1
