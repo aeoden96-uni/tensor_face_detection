@@ -3,8 +3,6 @@ function T = MyFold4(A, mode, org)
 ##  org = [5 4 3 2];
 
 
-
-
   switch mode
     case 1
       T = reshape(A,org(1),org(2),org(3),org(4));
