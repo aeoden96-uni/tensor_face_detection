@@ -3,7 +3,8 @@ function Y = TMM( T, M, mode )
 
 
 if(mode == 4)
-	d = 100;
+##	d = 100;
+ d= 3240;
 else
 	d = 6400;
 

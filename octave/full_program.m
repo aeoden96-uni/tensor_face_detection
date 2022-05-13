@@ -1,45 +1,18 @@
-function [ T, R ,P, S1_ , U1 ] = full_program()
-
-  if (isequal(computer(),"x86_64-pc-linux-gnu"))
-    test_img_dir = "../data/test/0000_02176.pgm";
-  else
-    test_img_dir = "..\\data\\test\\0000_02176.pgm";
-  endif
-
-  T = load_all_images(true);
-  [ S, U1, U2 ,U3 , U4 ] = MyHOSVD( T );
-
-  Tau = fold(U4 * unfold(S,4)   ,4 , [10 9 36 6400]);
-
-  Tpixels = unfold(Tau ,4);
-
-  Ppixels = (pinv(Tpixels))';
-
-  fprintf(1, 'Ppixels done\n');
-
-  P = fold(Ppixels,4,[10 9 36 6400]);
 
 
-  img_test_2d = imread(test_img_dir);
-  img_test_2d = imresize(img_test_2d, [80 80]);
+T = load_all_images(true);
 
-  img_test_1d = reshape(img_test_2d,1,[]);
-  img_test_1d =im2double(img_test_1d)*255;
+reduction = 100;
+[ S, U1, U2 ,U3 , U4 ] = MyHOSVD( T ,reduction);
 
-  fprintf(1, 'Test image loaded\n');
+Tau = fold(U4 * unfold(S,4)   ,4 , [10 9 36 6400]);
 
-  R = fold(img_test_1d * unfold(P,4)   ,4, [10 9 36 1]);
+Tpixels = unfold(Tau ,4);
 
-  fprintf(1, 'R done \n');
+Ppixels = (pinv(Tpixels))';
 
-  [ Z, V1, V2, V3 ] = HOSVD( R );
+fprintf(1, 'Ppixels done\n');
 
-  S1_ = petlja( V1,V2,V3 , R );
+P = fold(Ppixels,4,[10 9 36 6400]);
 
-  test(U1, S1_);
-
-
-
-
-
-end
+##check_test_set(P,U1);

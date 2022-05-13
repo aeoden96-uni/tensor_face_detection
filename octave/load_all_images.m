@@ -1,11 +1,8 @@
 function [ T ] = load_all_images(all = false)
 
-##myDir = "C:\\Users\\mateo\\Desktop\\s\\training-synthetic\\";
-if (isequal(computer(),"x86_64-pc-linux-gnu"))
-  myDir = "../data/training-synthetic/";
-else
-  myDir = "..\\data\\training-synthetic\\";
-endif
+pkg load image
+
+myDir = "data/training-synthetic/";
 
 
 T = zeros (10, 9, 6400);
@@ -45,8 +42,6 @@ for p = 0:9
         endif
 
         fprintf(1, 'Now reading %d %s\n',k, full_filename);
-
-
 
         k = k+1;
         l_iter =  l_iter +1;

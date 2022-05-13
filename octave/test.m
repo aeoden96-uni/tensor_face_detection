@@ -1,4 +1,4 @@
-function [ ] = test(U1, S1_)
+function ii = test(U1, S1_)
 
   N=1000;
   ii = 1;
@@ -17,7 +17,7 @@ function [ ] = test(U1, S1_)
 
   endfor
 
-  fprintf(1, 'Person number: %d\n',ii);
+##  fprintf(1, 'Person number: %d\n',ii);
 
 
 endfunction
