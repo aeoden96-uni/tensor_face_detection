@@ -9,15 +9,15 @@ function [ T, R ,P, S1_ , U1 ] = full_program()
   T = load_all_images(true);
   [ S, U1, U2 ,U3 , U4 ] = MyHOSVD( T );
 
-  Tau = MyFold4(U4 * MyUnfold(S,4)   ,4 , [10 9 36 6400]);
+  Tau = fold(U4 * unfold(S,4)   ,4 , [10 9 36 6400]);
 
-  Tpixels = MyUnfold(Tau ,4);
+  Tpixels = unfold(Tau ,4);
 
   Ppixels = (pinv(Tpixels))';
 
   fprintf(1, 'Ppixels done\n');
 
-  P = MyFold4(Ppixels,4,[10 9 36 6400]);
+  P = fold(Ppixels,4,[10 9 36 6400]);
 
 
   img_test_2d = imread(test_img_dir);
@@ -28,7 +28,7 @@ function [ T, R ,P, S1_ , U1 ] = full_program()
 
   fprintf(1, 'Test image loaded\n');
 
-  R = MyFold4(img_test_1d * MyUnfold(P,4)   ,4, [10 9 36 1]);
+  R = fold(img_test_1d * unfold(P,4)   ,4, [10 9 36 1]);
 
   fprintf(1, 'R done \n');
 

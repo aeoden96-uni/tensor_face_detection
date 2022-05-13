@@ -15,7 +15,10 @@ function [ S, U1, U2 ,U3 , U4 ] = MyHOSVD( A )
 % Vrijedi A = S x_1 U1 x_2 U2 x_3 U3
 %..........................................................................
 
-[T1,T2,T3,T4] = MyUnfold4(A);
+T1 = unfold(A,1);
+T2 = unfold(A,2);
+T3 = unfold(A,3);
+T4 = unfold(A,4);
 [n1,n2,n3,n4] = size (A);
 
 [ U1, ~, ~ ] = svds( T1 ,min(n1,n2*n3*n4)) ;
