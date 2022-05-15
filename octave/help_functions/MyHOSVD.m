@@ -17,7 +17,7 @@ fprintf(1, 'SVDS 2 done\n');
 fprintf(1, 'SVDS 3 done\n');
 
 if(reduction == 0)
-  t = min(n4,n1*n2*n3);
+  reduction = min(n4,n1*n2*n3);
 endif
 
 [ U4, ~, ~ ] = svds( T4 ,reduction) ;

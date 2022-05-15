@@ -1,18 +1,16 @@
-function [ T ] = load_all_images(all = false)
+function [ T ] = load_all_images(quality = 200)
 
 pkg load image
 
 myDir = "data/training-synthetic/";
 
 
-T = zeros (10, 9, 6400);
-if (all)
-  T = zeros (10, 9, 36, 6400);
-endif
+T = zeros (10, 9, 36, quality*quality);
+
 
 myFiles = dir(fullfile(myDir,'*.pgm'));
 
-k = 1
+k = 1;
 for p = 0:9
   p_str = strcat("000", num2str(p),"_");
   for a = [0 -4 -8 -12 -16 -20 -24 -28 -32]
@@ -30,28 +28,20 @@ for p = 0:9
         full_filename = strcat(p_str, a_str,  l1_str, l2_str , "1.pgm");
         img_original = imread(strcat(myDir,full_filename));
 
-        image_resized = imresize(img_original, [80 80]);
-        img_1d = reshape(image_resized,1,[]);
-##      IMAGES(k,:) = img1D;
+        img_original = imresize(img_original, [quality quality]);
+        img_1d = reshape(img_original,1,[]);
 
 
-        if (all)
-          T(p+1,1 - (a/4),l_iter,:) = img_1d;
-        else
-          T(p+1,1 - (a/4),:) = img_1d;
-        endif
+        T(p+1,1 - (a/4),l_iter,:) = img_1d;
+
 
         fprintf(1, 'Now reading %d %s\n',k, full_filename);
 
         k = k+1;
         l_iter =  l_iter +1;
 
-        if (all == false) break
-        endif
 
     end
-    if (all == false) break
-    endif
   end
 end
 end
