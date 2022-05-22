@@ -1,6 +1,6 @@
 addpath("help_functions");
 
-resize_to = 200;
+resize_to = 80;
 
 T = load_all_images(resize_to);
 

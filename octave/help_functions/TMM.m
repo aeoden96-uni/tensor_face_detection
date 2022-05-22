@@ -1,16 +1,14 @@
-function Y = TMM( T, M, mode)
+function Y = TMM( T, U, mode)
 
 
 if(mode == 4)
-  #T  10 9 36 40000
-  #M  100 40000
-
-  d = size(M)(2);
+  d = size(U)(1);
 else
-	d = 40000;
+  # d = 10 9 36
+	d = 6400;
 endif
-              #40000x3240
-Y = fold(M * unfold(T,mode)   ,mode , [10 9 36 d]);
-          #100x3240
+
+Y = fold(U * unfold(T,mode)   ,mode , [10 9 36 d]);
+
 end
 
