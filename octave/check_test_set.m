@@ -1,11 +1,13 @@
 function [] = check_test_set(P,U1)
   addpath("help_functions");
-
+  pkg load image
   resize_to = 80;
 
   fprintf(1, '\nTest start:\n');
-  myDir = "data/test_old/";
+  myDir = "data/test/";
   myFiles = dir(myDir);
+
+  num_of_correct = 0;
 
   for k = 3:length(myFiles)
     baseFileName = myFiles(k).name;
@@ -25,13 +27,26 @@ function [] = check_test_set(P,U1)
     correct_person = strsplit(baseFileName,"_")(1){:};
     if (isequal(correct_person,strcat("000", num2str(rez-1))))
       rez_str = "OK";
-      #fprintf(1, '%d %s  %s\n',rez,baseFileName, rez_str);
+      num_of_correct = num_of_correct + 1;
     else
       rez_str = "";
     endif
 
     fprintf(1, '%d %s  %s\n',rez,baseFileName, rez_str);
 
-  endfor
+endfor
+
+fprintf(1, '\n\nAccuracy: %d percent.\n',num_of_correct);
+fprintf(1, 'Correct: %d images\n',num_of_correct);
+fprintf(1, 'Wrong: %d images\n',100-num_of_correct);
+
+clf;
+x = [1 0];
+y = [num_of_correct 100-num_of_correct];
+
+bar (x,y,1)
+title ("Accuracy");
+ylabel ("Percent");
 
 end
+

@@ -13,7 +13,7 @@ function [] = testing(P,U1,person)
   fprintf(1, '\nN = %d\n',length(myFiles)-2);
   for k = 3:length(myFiles)
     baseFileName = myFiles(k).name;
-    fprintf(1, '\nExample: %s\n',baseFileName);
+
 
     img_test_2d = imread(strcat(myDir,baseFileName));
     img_test_2d = imresize(img_test_2d, [resize_to resize_to]);
@@ -26,9 +26,11 @@ function [] = testing(P,U1,person)
     S1_ = main_test_loop( V1,V2,V3 , R );
     rez = check_person(U1, S1_);
 
-    fprintf(1, '   PERSON %d \n',rez - 1);
+
 
     if (rez - 1 == person)
+      fprintf(1, '\nExample: %s\n',baseFileName);
+      fprintf(1, '   PERSON %d \n',rez - 1);
       subplot(2,2,images_print),imshow(imread(strcat(myDir,baseFileName)));
       images_print = images_print + 1;
     endif
@@ -36,13 +38,6 @@ function [] = testing(P,U1,person)
     if (images_print > 3)
       break
     endif
-
-##    correct_person = strsplit(baseFileName,"_")(1){:};
-##    if (isequal(correct_person,strcat("000", num2str(rez-1))))
-##      fprintf(1, '   PERSON %d CORRECT \n',rez);
-##    else
-##      fprintf(1, '   XXX (PERSON %d)\n',rez);
-##    endif
 
   endfor
 
