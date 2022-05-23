@@ -4,7 +4,7 @@ function [] = check_test_set(P,U1)
   resize_to = 80;
 
   fprintf(1, '\nTest start:\n');
-  myDir = "data/test/";
+  myDir = "data/test_old/";
   myFiles = dir(myDir);
 
   for k = 3:length(myFiles)

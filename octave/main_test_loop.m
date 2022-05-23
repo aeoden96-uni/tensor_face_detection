@@ -4,9 +4,8 @@ function [ S1 ] = main_test_loop( V1,V2 ,V3 ,R)
   S2 = V2(:,1);
   S3 = V3(:,1);
 
-  tolerance = 10e-5;
+  tolerance = 10e-4;
   hard_limit= 1;
-
   old_norm = 1000;
 
   while true
@@ -32,7 +31,7 @@ function [ S1 ] = main_test_loop( V1,V2 ,V3 ,R)
 
       new_norm = R-R_;
       new_norm = norm(new_norm(:),"fro");
-      fprintf("%f\n", new_norm);
+##      fprintf("   %f\n", new_norm);
 
       if(abs(old_norm-new_norm) < tolerance) break
       endif
